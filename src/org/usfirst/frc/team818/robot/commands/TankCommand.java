@@ -26,10 +26,11 @@ public class TankCommand extends CommandBase {
         if (oi.getLeftY() < leftSpeed) leftSpeed = MathUtil.limitMin(leftSpeed - ramp, oi.getLeftY());
         if (oi.getRightY() > rightSpeed) rightSpeed = MathUtil.limitMax(rightSpeed + ramp, oi.getRightY());
         if (oi.getRightY() < rightSpeed) rightSpeed = MathUtil.limitMin(rightSpeed - ramp, oi.getRightY());
-        if (drive.isSlipping()) {
+        /*if (drive.isSlipping()) {
         	  
-        }
+        }*/
         drive.setBoth(leftSpeed, rightSpeed);
+        System.out.println("leftSpeed: " + leftSpeed + "  voltageR: " + drive.pdp.getCurrent(0) + "  rightSpeed: " + rightSpeed + "  voltageR: " + drive.pdp.getCurrent(15));
     }
 
     protected boolean isFinished() {

@@ -7,12 +7,17 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer.Range;
 
 public class DriveSubsystem extends Subsystem {
+	
+	public PowerDistributionPanel pdp;
 
 	Talon[] leftMotors;
 	Talon[] rightMotors;
@@ -57,7 +62,8 @@ public class DriveSubsystem extends Subsystem {
 
 			for (int i = 0; i < rightMotorPorts.length; i++)
 				rightMotors[i] = new Talon(rightMotorPorts[i]);
-
+			
+			pdp = new PowerDistributionPanel();
 			driveGyro = new AnalogGyro(gyroPort);
 			accel = new BuiltInAccelerometer();
 			rampFactor = 0.03;
@@ -168,13 +174,12 @@ public class DriveSubsystem extends Subsystem {
 
 	}
 	
-	public boolean isSlipping() {
-		if (Math.abs(leftEncoder.getRate()) > 5 && accel.getY() > 2) {
+	/*public boolean isSlipping() {
+		if (pdp.getCurrent(15) < slipVal) 
 			return true;
-		} else {
+		else 
 			return false;
-		}
-	}
+	}*/
 	
 	//************************** PID STUFF STARTS RIGHT HERE ****************************
 	
